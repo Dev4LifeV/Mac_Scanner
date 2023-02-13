@@ -1,4 +1,6 @@
-class BlockDetails {
+import 'package:mac_scanner/core/model/decodable.dart';
+
+class BlockDetails implements Decodable {
   BlockDetails({
     String? blockFound,
     String? borderLeft,
@@ -15,13 +17,13 @@ class BlockDetails {
         _dateCreated = dateCreated,
         _dateUpdated = dateUpdated;
 
-  final String? _blockFound;
-  final String? _borderLeft;
-  final String? _borderRight;
-  final String? _blockSize;
-  final String? _assignmentBlockSize;
-  final String? _dateCreated;
-  final String? _dateUpdated;
+  String? _blockFound;
+  String? _borderLeft;
+  String? _borderRight;
+  String? _blockSize;
+  String? _assignmentBlockSize;
+  String? _dateCreated;
+  String? _dateUpdated;
 
   String get blockFound => _blockFound ?? "";
   String get borderLeft => _borderLeft ?? "";
@@ -30,4 +32,15 @@ class BlockDetails {
   String get assignmentBlockSize => _assignmentBlockSize ?? "";
   String get dateCreated => _dateCreated ?? "";
   String get dateUpdated => _dateUpdated ?? "";
+
+  @override
+  decode(Map<String, dynamic> json) {
+    _blockFound = json[""];
+    _borderLeft = json[""];
+    _borderRight = json[""];
+    _blockSize = json[""];
+    _assignmentBlockSize = json[""];
+    _dateCreated = json[""];
+    _dateUpdated = json[""];
+  }
 }
