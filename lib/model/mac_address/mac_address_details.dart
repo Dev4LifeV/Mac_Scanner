@@ -1,4 +1,6 @@
-class MacAddressDetails {
+import 'package:mac_scanner/core/model/decodable.dart';
+
+class MacAddressDetails implements Decodable {
   MacAddressDetails({
     String? searchTerm,
     String? isValid,
@@ -17,14 +19,14 @@ class MacAddressDetails {
         _wiresharkNotes = wiresharkNotes,
         _comment = comment;
 
-  final String? _searchTerm;
-  final String? _isValid;
-  final String? _virtualMachine;
-  final List<String>? _applications;
-  final String? _transmissionType;
-  final String? _administrationType;
-  final String? _wiresharkNotes;
-  final String? _comment;
+  String? _searchTerm;
+  String? _isValid;
+  String? _virtualMachine;
+  List<String>? _applications;
+  String? _transmissionType;
+  String? _administrationType;
+  String? _wiresharkNotes;
+  String? _comment;
 
   String get searchTerm => _searchTerm ?? "";
   String get isValid => _isValid ?? "";
@@ -34,4 +36,16 @@ class MacAddressDetails {
   String get administrationType => _administrationType ?? "";
   String get wiresharkNotes => _wiresharkNotes ?? "";
   String get comment => _comment ?? "";
+
+  @override
+  decode(Map<String, dynamic> json) {
+    _searchTerm = json["searchTerm"];
+    _isValid = json["isValid"];
+    _virtualMachine = json["virtualMachine"];
+    _applications = json["applications"];
+    _transmissionType = json["transmissionType"];
+    _administrationType = json["administrationType"];
+    _wiresharkNotes = json["wiresharkNotes"];
+    _comment = json["comment"];
+  }
 }
