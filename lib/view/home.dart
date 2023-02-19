@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mac_scanner/controller/controller_get_mac_address.dart';
-import 'package:mac_scanner/core/config/injector.dart';
 import 'package:mac_scanner/core/model/mac_address/mac_address.dart';
+import 'package:mac_scanner/core/config/extensions.dart';
+import 'package:mac_scanner/view/widgets/appbar/custom_appbar.dart';
+import 'package:mac_scanner/view/widgets/card/card_latest_lookup.dart';
+import 'package:mac_scanner/view/widgets/card/card_result.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -15,27 +17,27 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text("MacScanner iOS"),
+        backgroundColor: context.colors.background,
+        appBar: const PreferredSize(
+          preferredSize: Size(double.infinity, CustomAppBar.toolbarHeight),
+          child: CustomAppBar(),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => Injector.shared
-              .read<ControllerGetMacAddress>()
-              .callUsecase()
-              .then((value) => setState(() => result = value)),
-          child: const Icon(Icons.search),
-        ),
-        body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text("Tap the button to start a new request"),
-              Text(
-                result?.macAddressDetails?.transmissionType ?? "Nothing was found",
-              )
-            ],
-          ),
+        body: body(),
+      );
+
+  Widget body() => SingleChildScrollView(
+        child: Column(
+          children: [
+            header(),
+            const CardResult(),
+            const CardResult(),
+            const CardResult(),
+            const CardResult(),
+            const CardResult(),
+            const CardResult(),
+          ],
         ),
       );
+
+  Widget header() => const CardLatestLookup();
 }
