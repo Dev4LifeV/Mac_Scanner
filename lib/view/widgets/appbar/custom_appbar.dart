@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mac_scanner/core/config/extensions.dart';
-import 'package:mac_scanner/view/widgets/appbar/bottom_line.dart';
+import 'package:mac_scanner/view/widgets/appbar/appbar_divider.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});
@@ -31,7 +31,7 @@ class CustomAppBar extends StatelessWidget {
               ],
             ),
           ),
-          const BottomLine()
+          const AppbarDivider()
         ],
       );
 }
