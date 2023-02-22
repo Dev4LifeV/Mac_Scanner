@@ -1,4 +1,6 @@
-class MacAddressDetails {
+import 'package:mac_scanner/core/model/model.dart';
+
+class MacAddressDetails extends Model {
   MacAddressDetails({
     String? searchTerm,
     bool? isValid,
@@ -26,6 +28,8 @@ class MacAddressDetails {
   String? _wiresharkNotes;
   String? _comment;
 
+  Map? _rawModel;
+
   String get searchTerm => _searchTerm ?? "";
   bool get isValid => _isValid ?? false;
   String get virtualMachine => _virtualMachine ?? "";
@@ -35,14 +39,18 @@ class MacAddressDetails {
   String get wiresharkNotes => _wiresharkNotes ?? "";
   String get comment => _comment ?? "";
 
-  factory MacAddressDetails.fromJson(Map json) => MacAddressDetails(
-        administrationType: json["administrationType"],
-        applications: json["applications"],
-        isValid: json["isValid"],
-        searchTerm: json["searchTerm"],
-        virtualMachine: json["virtualMachine"],
-        transmissionType: json["transmissionType"],
-        wiresharkNotes: json["wiresharkNotes"],
-        comment: json["comment"],
-      );
+  @override
+  Map get rawModel => _rawModel ?? {};
+
+  MacAddressDetails.fromJson(Map json) {
+    _rawModel = json;
+    _administrationType = json["administrationType"];
+    _applications = json["applications"];
+    _isValid = json["isValid"];
+    _searchTerm = json["searchTerm"];
+    _virtualMachine = json["virtualMachine"];
+    _transmissionType = json["transmissionType"];
+    _wiresharkNotes = json["wiresharkNotes"];
+    _comment = json["comment"];
+  }
 }
