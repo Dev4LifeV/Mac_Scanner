@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mac_scanner/core/config/extensions.dart';
+import 'package:mac_scanner/core/model/model.dart';
 import 'package:mac_scanner/view/style/fonts.dart';
 
 class CardResult extends StatelessWidget {
-  const CardResult({super.key});
+  const CardResult({required String title, required Model content, super.key})
+      : _title = title,
+        _content = content;
+
+  final String _title;
+  final Model _content;
 
   @override
   Widget build(BuildContext context) => Card(
@@ -12,10 +18,10 @@ class CardResult extends StatelessWidget {
         child: body(context),
       );
 
-  Widget title(BuildContext context, String title) => Container(
+  Widget title(BuildContext context) => Container(
         padding: const EdgeInsets.only(left: 12, top: 20),
         child: Text(
-          title,
+          _title,
           style: context.cardTitle,
         ),
       );
@@ -46,15 +52,29 @@ class CardResult extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            title(context, "Vendor details"),
+            title(context),
             const SizedBox(
               height: 10,
             ),
-            row(context, "Oui", "443839", 0),
-            row(context, "AA", "PP", 1),
-            row(context, "AA", "PP", 2),
-            row(context, "AA", "PP", 3),
+            ...buildRows(context),
           ],
         ),
       );
+
+  List<Widget> buildRows(BuildContext context) {
+    List<Widget> rows = [];
+
+    _content.rawModel.entries.toList().asMap().forEach(
+          (key, value) => rows.add(
+            row(
+              context,
+              value.key,
+              value.value,
+              key,
+            ),
+          ),
+        );
+
+    return rows;
+  }
 }
