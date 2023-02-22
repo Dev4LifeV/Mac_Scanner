@@ -1,4 +1,6 @@
-class BlockDetails {
+import 'package:mac_scanner/core/model/model.dart';
+
+class BlockDetails extends Model {
   BlockDetails({
     bool? blockFound,
     String? borderLeft,
@@ -23,6 +25,8 @@ class BlockDetails {
   String? _dateCreated;
   String? _dateUpdated;
 
+  Map? _rawModel;
+
   bool get blockFound => _blockFound ?? false;
   String get borderLeft => _borderLeft ?? "";
   String get borderRight => _borderRight ?? "";
@@ -31,13 +35,17 @@ class BlockDetails {
   String get dateCreated => _dateCreated ?? "";
   String get dateUpdated => _dateUpdated ?? "";
 
-  factory BlockDetails.fromJson(Map json) => BlockDetails(
-        blockFound: json["blockFound"],
-        borderLeft: json["borderLeft"],
-        borderRight: json["borderRight"],
-        blockSize: json["blockSize"],
-        assignmentBlockSize: json["assignmentBlockSize"],
-        dateCreated: json["dateCreated"],
-        dateUpdated: json["dateUpdated"],
-      );
+  @override
+  Map get rawModel => _rawModel ?? {};
+
+  BlockDetails.fromJson(Map json) {
+    _rawModel = json;
+    _blockFound = json["blockFound"];
+    _borderLeft = json["borderLeft"];
+    _borderRight = json["borderRight"];
+    _blockSize = json["blockSize"];
+    _assignmentBlockSize = json["assignmentBlockSize"];
+    _dateCreated = json["dateCreated"];
+    _dateUpdated = json["dateUpdated"];
+  }
 }
