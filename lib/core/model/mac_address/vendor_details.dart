@@ -1,4 +1,6 @@
-class VendorDetails {
+import 'package:mac_scanner/core/model/model.dart';
+
+class VendorDetails extends Model {
   VendorDetails(
       {String? oui,
       bool? isPrivate,
@@ -23,10 +25,17 @@ class VendorDetails {
   String get companyAddress => _companyAddress ?? "";
   String get countryCode => _countryCode ?? "";
 
-  factory VendorDetails.fromJson(Map json) => VendorDetails(
-      oui: json["oui"],
-      isPrivate: json["isPrivate"],
-      companyName: json["companyName"],
-      companyAddress: json["companyAddress"],
-      countryCode: json["countryCode"]);
+  @override
+  Map get rawModel => _rawModel ?? {};
+
+  Map? _rawModel;
+
+  VendorDetails.fromJson(Map json) {
+    _rawModel = json;
+    _oui = json["oui"];
+    _isPrivate = json["isPrivate"];
+    _companyName = json["companyName"];
+    _companyAddress = json["companyAddress"];
+    _countryCode = json["countryCode"];
+  }
 }
