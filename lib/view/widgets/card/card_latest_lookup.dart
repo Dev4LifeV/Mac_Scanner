@@ -3,7 +3,18 @@ import 'package:mac_scanner/core/config/extensions.dart';
 import 'package:mac_scanner/view/style/fonts.dart';
 
 class CardLatestLookup extends StatelessWidget {
-  const CardLatestLookup({super.key});
+  const CardLatestLookup({
+    String? searchTerm,
+    String? virtualMachine,
+    String? transmissionType,
+    super.key,
+  })  : _searchTerm = searchTerm,
+        _virtualMachine = virtualMachine,
+        _transmissionType = transmissionType;
+
+  final String? _searchTerm;
+  final String? _virtualMachine;
+  final String? _transmissionType;
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -64,7 +75,7 @@ class CardLatestLookup extends StatelessWidget {
           ),
           Flexible(
             child: Text(
-              "FF:FF:FF:FF:FF:FF",
+              _searchTerm ?? "FF:FF:FF:FF:FF:FF",
               style: context.titleBold,
             ),
           ),
@@ -78,7 +89,7 @@ class CardLatestLookup extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                "Virtual machine not detected",
+                _virtualMachine ?? "Unknown status",
                 style: context.subtitle,
               ),
             ],
@@ -87,7 +98,7 @@ class CardLatestLookup extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                "Unicast",
+                _transmissionType ?? "Unknown status",
                 style: context.subtitle,
               ),
             ],
